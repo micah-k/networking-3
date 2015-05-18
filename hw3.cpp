@@ -1,7 +1,6 @@
 #include <iostream>
 #include "UdpSocket.h"
 #include "Timer.h"
-#include "udp.cpp"
 
 using namespace std;
 

@@ -44,7 +44,7 @@ void serverReliable(UdpSocket &sock, const int max, int message[]) {
   // receive message[] max times
   for (int i = 0; i < max; i++) {
     sock.recvFrom((char*)message, MSGSIZE);   // udp message receive
-    ackNum = message[0];
+    ackNum[0] = message[0];
     sock.ackTo((char*)ackNum, sizeof(ackNum)); // udp message send
     cerr << message[0] << endl;                     // print out message
   }
@@ -91,7 +91,7 @@ int clientSlidingWindow(UdpSocket &sock, const int max, int message[], int windo
     }
     sock.recvFrom((char*)ackNum, sizeof(ackNum));
     cerr << "next message: " << ackNum << endl;
-    lastAck = ackNum;
+    lastAck = ackNum[0];
   }
   return retransmits;
 }
@@ -111,7 +111,7 @@ void serverEarlyRetrans(UdpSocket &sock, const int max, int message[], int windo
     {
       i++;  //move to next unreceived packet
     }
-    ackNum = i;
+    ackNum[0] = i;
     sock.ackTo((char*)ackNum, sizeof(ackNum)); // ack with next unreceived packet
     cerr << message[0] << endl;                     // print out message
   }

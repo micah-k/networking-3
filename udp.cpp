@@ -32,7 +32,7 @@ int clientStopWait(UdpSocket &sock, const int max, int message[]) {
       }
     }
     sock.recvFrom((char*)ackNum, sizeof(ackNum));
-    cerr << "acked message " << ackNum << endl;
+    cerr << "acked message " << ackNum[0] << endl;
   }
   return retransmits;
 }
@@ -90,7 +90,7 @@ int clientSlidingWindow(UdpSocket &sock, const int max, int message[], int windo
       }
     }
     sock.recvFrom((char*)ackNum, sizeof(ackNum));
-    cerr << "next message: " << ackNum << endl;
+    cerr << "next message: " << ackNum[0] << endl;
     lastAck = ackNum[0];
   }
   return retransmits;

@@ -8,7 +8,7 @@ using namespace std;
 int clientStopWait(UdpSocket &sock, const int max, int message[]) {
   cerr << "client: stop-wait test:" << endl;
   int retransmits = 0;
-  char c;
+  int ackNum;
   Timer timeout;
 
   // transfer message[] max times
@@ -31,21 +31,21 @@ int clientStopWait(UdpSocket &sock, const int max, int message[]) {
         }
       }
     }
-    sock.recvFrom(&c, sizeof(c));
-    cerr << "acked message " << (int)c << endl;
+    sock.recvFrom((char*)ackNum, sizeof(ackNum));
+    cerr << "acked message " << ackNum << endl;
   }
   return retransmits;
 }
 
 void serverReliable(UdpSocket &sock, const int max, int message[]) {
   cerr << "server: reliable test:" << endl;
-  char c;
+  int ackNum;
 
   // receive message[] max times
   for (int i = 0; i < max; i++) {
     sock.recvFrom((char*)message, MSGSIZE);   // udp message receive
-    c = (char)message[0];
-    sock.ackTo(&c, sizeof(c)); // udp message send
+    ackNum = message[0];
+    sock.ackTo((char*)ackNum, sizeof(ackNum)); // udp message send
     cerr << message[0] << endl;                     // print out message
   }
 }
@@ -56,7 +56,7 @@ int clientSlidingWindow(UdpSocket &sock, const int max, int message[], int windo
   int retransmits = 0;
   int lastAck = 0;
   int messages = 0;
-  char c;
+  int ackNum;
   Timer timeout;
 
   // transfer message[] max times
@@ -89,9 +89,9 @@ int clientSlidingWindow(UdpSocket &sock, const int max, int message[], int windo
         }
       }
     }
-    sock.recvFrom(&c, sizeof(c));
-    cerr << "next message: " << (int)c << endl;
-    lastAck = (int)c;
+    sock.recvFrom((char*)ackNum, sizeof(ackNum));
+    cerr << "next message: " << ackNum << endl;
+    lastAck = ackNum;
   }
   return retransmits;
 }
@@ -100,7 +100,7 @@ void serverEarlyRetrans(UdpSocket &sock, const int max, int message[], int windo
   cerr << "server: early retrans test:" << endl;
   bool msgsrecvd[max];
   fill_n(msgsrecvd, max, false); //set all values in msgsrecvd to false
-  char c;
+  int ackNum;
   int i = 0;
 
   // receive message[] max times
@@ -111,8 +111,8 @@ void serverEarlyRetrans(UdpSocket &sock, const int max, int message[], int windo
     {
       i++;  //move to next unreceived packet
     }
-    c = (char)i;
-    sock.ackTo(&c, sizeof(c)); // ack with next unreceived packet
-    cerr << c << endl;                     // print out message
+    ackNum = i;
+    sock.ackTo((char*)ackNum, sizeof(ackNum)); // ack with next unreceived packet
+    cerr << message[0] << endl;                     // print out message
   }
 }

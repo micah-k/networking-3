@@ -44,7 +44,7 @@ void serverReliable(UdpSocket &sock, const int max, int message[]) {
   // receive message[] max times
   for (int i = 0; i < max; i++) {
     sock.recvFrom((char*)message, MSGSIZE);   // udp message receive
-    c = (char)message[0]
+    c = (char)message[0];
     sock.ackTo(&c, sizeof(c)); // udp message send
     cerr << c << endl;                     // print out message
   }
@@ -106,8 +106,8 @@ void serverEarlyRetrans(UdpSocket &sock, const int max, int message[], int windo
   // receive message[] max times
   while (i < max) {
     sock.recvFrom((char*)message, MSGSIZE);   // udp message receive
-    msgsrcvd[message[0]]=true;
-    while(msgsrcvd[i])
+    msgsrecvd[message[0]]=true;
+    while(msgsrecvd[i])
     {
       i++;  //move to next unreceived packet
     }

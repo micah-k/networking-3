@@ -61,7 +61,7 @@ int clientSlidingWindow(UdpSocket &sock, const int max, int message[], int windo
 
   // transfer message[] max times
   for (int i = 0; i < max; i++) {
-    if (i < lastAck)
+    if ((int)((char)i) < lastAck)
     {
       messages--;
       continue;
@@ -79,7 +79,7 @@ int clientSlidingWindow(UdpSocket &sock, const int max, int message[], int windo
       timeout.start();
       while(sock.pollRecvFrom()==0)
       {
-        if(timeout.lap()>1500)
+        if(timeout.lap()>2000)
         {
           retransmits++;
           message[0] = i;

@@ -8,7 +8,7 @@ using namespace std;
 int clientStopWait(UdpSocket &sock, const int max, int message[]) {
   cerr << "client: stop-wait test:" << endl;
   int retransmits = 0;
-  int ackNum;
+  int* ackNum;
   Timer timeout;
 
   // transfer message[] max times
@@ -39,7 +39,7 @@ int clientStopWait(UdpSocket &sock, const int max, int message[]) {
 
 void serverReliable(UdpSocket &sock, const int max, int message[]) {
   cerr << "server: reliable test:" << endl;
-  int ackNum;
+  int* ackNum;
 
   // receive message[] max times
   for (int i = 0; i < max; i++) {
@@ -56,7 +56,7 @@ int clientSlidingWindow(UdpSocket &sock, const int max, int message[], int windo
   int retransmits = 0;
   int lastAck = 0;
   int messages = 0;
-  int ackNum;
+  int* ackNum;
   Timer timeout;
 
   // transfer message[] max times
@@ -100,7 +100,7 @@ void serverEarlyRetrans(UdpSocket &sock, const int max, int message[], int windo
   cerr << "server: early retrans test:" << endl;
   bool msgsrecvd[max];
   fill_n(msgsrecvd, max, false); //set all values in msgsrecvd to false
-  int ackNum;
+  int* ackNum;
   int i = 0;
 
   // receive message[] max times

@@ -46,7 +46,7 @@ void serverReliable(UdpSocket &sock, const int max, int message[]) {
     sock.recvFrom((char*)message, MSGSIZE);   // udp message receive
     c = (char)message[0];
     sock.ackTo(&c, sizeof(c)); // udp message send
-    cerr << c << endl;                     // print out message
+    cerr << message[0] << endl;                     // print out message
   }
 }
 

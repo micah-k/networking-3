@@ -74,14 +74,14 @@ int main( int argc, char *argv[] ) {
       break;
     case 3:
       for ( int windowSize = 1; windowSize <= MAXWIN; windowSize++ ) {
-	timer.start( );                                        // start timer
-	retransmits =
-	clientSlidingWindow( sock, MAX, message, windowSize ); // actual test
-	cerr << "Window size = ";                              // lap timer
-	cout << windowSize << " ";
-	cerr << "Elasped time = "; 
-	cout << timer.lap( ) << endl;
-	cerr << "retransmits = " << retransmits << endl;
+        timer.start( );                                        // start timer
+        retransmits =
+        clientSlidingWindow( sock, MAX, message, windowSize ); // actual test
+        cerr << "Window size = ";                              // lap timer
+        cout << windowSize << " ";
+        cerr << "Elasped time = "; 
+        cout << timer.lap( ) << endl;
+        cerr << "retransmits = " << retransmits << endl;
       }
       break;
     default:
@@ -99,7 +99,7 @@ int main( int argc, char *argv[] ) {
       break;
     case 3:
       for ( int windowSize = 1; windowSize <= MAXWIN; windowSize++ )
-	serverEarlyRetrans( sock, MAX, message, windowSize );
+        serverEarlyRetrans( sock, MAX, message, windowSize );
       break;
     default:
       cerr << "no such test case" << endl;

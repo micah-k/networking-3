@@ -91,11 +91,11 @@ int main( int argc, char *argv[] ) {
   if ( myPart == SERVER ) {
     switch( windowSize ) {
     case 1:
-      for ( int n = 1; n <= MAXN; n++ )
+      for ( int n = 0; n <= MAXN; n++ )
         serverEarlyRetrans( sock, MAX, message, n );
       break;
     case 2:
-      for ( int n = 1; n <= MAXN; n++ )
+      for ( int n = 0; n <= MAXN; n++ )
         serverEarlyRetrans( sock, MAX, message, n );
       break;
     default:

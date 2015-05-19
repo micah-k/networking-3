@@ -106,7 +106,7 @@ int main( int argc, char *argv[] ) {
     cerr << "server ending..." << endl;
     for ( int i = 0; i < 10; i++ ) {
       sleep( 1 );
-      int ack = MAX - 1;
+      int ack = MAX; // client keeps attempting to send packet 19999 when MAX - 1 is specified, even if server finishes
       sock.ackTo( (char *)&ack, sizeof( ack ) );
     }
   }

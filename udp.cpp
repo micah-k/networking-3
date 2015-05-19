@@ -65,18 +65,20 @@ void serverReliable(UdpSocket &sock, const int max, int message[]) {
 int clientSlidingWindow(UdpSocket &sock, const int max, int message[], int windowSize) {
   cerr << "client: sliding window test:" << endl;
   int retransmits = 0;
-  int lastAck = 0;
+  int nextMsg = 0;
   int messages = 0;
   int ackNum[1];
   Timer timeout;
+  int i = 0;
 
 
 
   // transfer message[] max times
-  for (int i = 0; i < max; i++) {
-    if (i < lastAck)
+  while (i < max) {
+    if (i < nextMsg)
     {
       messages--;
+      i++;
       continue;
     }
     while(messages < windowSize && i + messages < max)
@@ -104,7 +106,7 @@ int clientSlidingWindow(UdpSocket &sock, const int max, int message[], int windo
     }
     sock.recvFrom((char*)ackNum, 4);
     cerr << "next message: " << ackNum[0] << endl;
-    lastAck = ackNum[0];
+    nextMsg = ackNum[0];
   }
   return retransmits;
 }

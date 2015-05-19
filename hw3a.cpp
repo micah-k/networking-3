@@ -70,6 +70,7 @@ int main( int argc, char *argv[] ) {
         cout << timer.lap( ) << endl;                           // lap timer
         cerr << "retransmits = " << retransmits << endl;
       }
+      break;
     case 2:
       for ( int n = 0; n <= MAXN; n++ ) {
         timer.start( );                                         // start timer
@@ -81,6 +82,7 @@ int main( int argc, char *argv[] ) {
         cout << timer.lap( ) << endl;                           // lap timer
         cerr << "retransmits = " << retransmits << endl;
       }
+      break;
     default:
       cerr << "invalid selection" << endl;
       break;
@@ -106,7 +108,7 @@ int main( int argc, char *argv[] ) {
     cerr << "server ending..." << endl;
     for ( int i = 0; i < 10; i++ ) {
       sleep( 1 );
-      int ack = MAX; // client keeps attempting to send packet 19999 when MAX - 1 is specified, even if server finishes
+      int ack = MAX - 1;
       sock.ackTo( (char *)&ack, sizeof( ack ) );
     }
   }

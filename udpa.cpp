@@ -122,13 +122,13 @@ void serverEarlyRetrans(UdpSocket &sock, const int max, int message[], int n) {
   // receive message[] max times
   while (i < max) {
     sock.recvFrom((char*)message, MSGSIZE);             // udp message receive
-    msgsrecvd[message[0]]=true;
-    while(msgsrecvd[i])
-    {
-      i++;  //move to next unreceived packet
-    }
-
     if((rand() % 100 + 1) > n) {                        // determine whether failure should occur
+      msgsrecvd[message[0]]=true;
+      while(msgsrecvd[i])
+      {
+        i++;  //move to next unreceived packet
+      }
+
       ackNum[0] = i;
       sock.ackTo((char*)ackNum, 4);                     // ack with next unreceived packet
       cerr << message[0] << endl;                       // print out message
